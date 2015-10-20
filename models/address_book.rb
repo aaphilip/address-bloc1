@@ -22,9 +22,9 @@
    end
   
    def remove_entry(name, phone_number, email)
-    @entries.each do |entry|
+    @entries.each_with_index do |entry, index|
      if name == entry.name && phone_number == entry.phone_number && email == entry.email
-      @entries.delete(index, Entry.new(name, phone_number, email))      # find a method that removes an item from an array...
+      @entries.delete_at(index)      # find a method that removes an item from an array...
      end 
     end
    end
