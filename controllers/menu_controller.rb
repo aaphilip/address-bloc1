@@ -1,42 +1,46 @@
+# #1
  require_relative '../models/address_book'
-
+ 
  class MenuController
    attr_accessor :address_book
-
+ 
    def initialize
      @address_book = AddressBook.new
    end
-
+ 
    def main_menu
+ # #2
      puts "Main Menu - #{@address_book.entries.count} entries"
+     puts "0 - View Entry Number - n"
      puts "1 - View all entries"
      puts "2 - Create an entry"
      puts "3 - Search for an entry"
      puts "4 - Import entries from a CSV"
      puts "5 - Exit"
      print "Enter your selection: "
-
+ 
+ # #3
      selection = gets.to_i
-     puts "You picked #{selection}"
- # #7
-     case selection
-     when 1
+    case selection
+    when 0
+      view_by_number
+    when 1
        system "clear"
        view_all_entries
        main_menu
-     when 2
+    when 2
        system "clear"
        create_entry
        main_menu
-     when 3
+    when 3
        system "clear"
        search_entries
        main_menu
-     when 4
+    when 4
        system "clear"
        read_csv
        main_menu
-     when 5
+    when 5
        puts "Good-bye!"
  # #8
        exit(0)
@@ -45,24 +49,38 @@
        system "clear"
        puts "Sorry, that is not a valid input"
        main_menu
+    end
+   end
+  
+# # adding a method to perfrom the tasks related to user entering a 0
+     def view_by_number
+     system "clear"
+     puts "Enter the entry number"
+     entry_num = gets.to_i
+      if entry_num > 0 && entry_num <= @address_book.entries.count
+        entry = @address_book.entries[entry_num - 1]
+        puts entry.to_s
+      else
+        puts "Please enter a valid entry number"
+      end
+     main_menu
      end
-   end
+# # end mthod for selecting 0
+
+  def view_all_entries
+  end
+      
+  def create_entry
+  end
  
- # #10
-   def view_all_entries
-   end
+  def search_entries
+  end
  
-   def create_entry
-   end
+  def read_csv
+  end
+# end
  
-   def search_entries
-   end
- 
-   def read_csv
-   end
- end
- def create_entry
- 
+  def create_entry
  # #11
      system "clear"
      puts "New AddressBloc Entry"
@@ -79,9 +97,9 @@
  
      system "clear"
      puts "New entry created"
- end
- 
- def view_all_entries
+  end
+   
+   def view_all_entries
  # #14
      @address_book.entries.each do |entry|
      system "clear"
@@ -92,10 +110,8 @@
  
      system "clear"
      puts "End of entries"
- end
- 
- 
- def entry_submenu(entry)
+   end
+    def entry_submenu(entry)
  # #16
      puts "n - next entry"
      puts "d - delete entry"
@@ -120,16 +136,8 @@
        puts "#{selection} is not a valid input"
        entries_submenu(entry)
      end
+    end
  end
+
+  
    
-   
-   
- 
- 
- 
- 
-   
-   
- 
- 
- 
